@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "749872693866",
+    "project_id": "notificationrouting-4ccd7",
+    "storage_bucket": "notificationrouting-4ccd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749872693866:android:d8cba2549602c8b2bc8013",
+        "android_client_info": {
+          "package_name": "com.example.notification_routing"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnKwige7YvK_LBDilNijaeo6UI2kDWxV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
