@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:notification_routing/firebase_options.dart';
 import 'package:notification_routing/views/home.dart';
 
@@ -19,8 +20,37 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
+  if (!await FlutterOverlayWindow.isPermissionGranted()) {
+    FlutterOverlayWindow.requestPermission();
+  }
   runApp(const MyApp());
+}
+
+// overlay entry point
+@pragma("vm:entry-point")
+void overlayMain() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Material(
+        child: Container(
+          alignment: Alignment.center,
+          color: Colors.amber,
+          child: Column(
+            children: [
+              IconButton(
+                onPressed: () async {
+                  await FlutterOverlayWindow.closeOverlay();
+                },
+                icon: const Icon(Icons.close),
+              ),
+              const Text("My overlay"),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -37,4 +67,15 @@ class MyApp extends StatelessWidget {
       home: const HomePage(),
     );
   }
+}
+
+void showOverlay() async {
+  FlutterOverlayWindow.showOverlay(
+    alignment: OverlayAlignment.center,
+    enableDrag: false,
+    // overlayTitle: "overlay activated11",
+    // overlayContent: 'Your Dialog Message Here',
+    width: 400,
+    height: 400,
+  );
 }

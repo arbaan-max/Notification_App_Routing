@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:notification_routing/main.dart';
 import 'package:notification_routing/service/notification.service.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,8 +35,17 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Notifications Routing Example'),
       ),
-      body: const Center(
-        child: Text('Home Page 1'),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              showOverlay();
+            },
+            child: const Text('Button'),
+          ),
+          const Text('Home Page 1'),
+        ],
       ),
     );
   }

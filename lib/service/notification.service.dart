@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:notification_routing/main.dart';
 import 'package:notification_routing/views/pages.dart';
 
 /// Singleton Class for [NotificationServices]
@@ -137,6 +139,7 @@ class NotificationServices {
   //function to get device token on which we will send the notifications
   Future<String> getDeviceToken() async {
     String? token = await messaging.getToken();
+    log(token??"Token");
     return token ?? 'tokenNotFound';
   }
 
@@ -161,12 +164,14 @@ class NotificationServices {
     //when app ins background
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       handleMessage(context, event);
+      showOverlay();
     });
   }
 
   void handleMessage(BuildContext context, RemoteMessage message) {
     switch (message.data['type']) {
       case 'secondPage':
+       showOverlay();
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -174,6 +179,7 @@ class NotificationServices {
             ));
         break;
       case 'thirdPage':
+       showOverlay();
         Navigator.push(
             context,
             MaterialPageRoute(
